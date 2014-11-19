@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>  
+
+        <h:form id="form">  
+            <p:dataTable id="checkboxDataTable"
+                         var="car" value="#{dtLazyView.lazyModel}"  
+                         rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         selection="#{dtLazyView.selectedCars}" 
+                         rowKey="#{car.id}" 
+                         lazy="true">  
+
+                <f:facet name="header">
+                    Checkbox
+                </f:facet>
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+                <p:column headerText="Id" sortBy="#{car.id}" filterBy="#{car.id}">  
+                    <h:outputText value="#{car.id}" />  
+                </p:column>  
+                <p:column headerText="Year" sortBy="#{car.year}"  
+                          filterBy="#{car.year}">  
+                    <h:outputText value="#{car.year}" />  
+                </p:column>  
+                <p:column headerText="Brand" sortBy="#{car.brand}"  
+                          filterBy="#{car.brand}">  
+                    <h:outputText value="#{car.brand}" />  
+                </p:column>  
+                <p:column headerText="Color" sortBy="#{car.color}"  
+                          filterBy="#{car.color}">  
+                    <h:outputText value="#{car.color}" />  
+                </p:column>  
+                <f:facet name="footer">
+                    <p:commandButton process="checkboxDataTable" update=":form:multiCarDetail" icon="ui-icon-search" value="View" oncomplete="PF('multiCarDialog').show()" />
+                </f:facet>                
+            </p:dataTable>  
+
+            <p:dialog header="Selected Cars" widgetVar="multiCarDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="200">
+                <p:outputPanel id="multiCarDetail" style="text-align:center;">
+                    <ui:repeat value="#{dtLazyView.selectedCars}" var="car">
+                        <h:outputText value="#{car.id} - #{car.brand}" style="display:block"/>
+                    </ui:repeat>
+                </p:outputPanel>
+            </p:dialog>        
+        </h:form>  
+
+
+    </h:body>  
+</html>  
