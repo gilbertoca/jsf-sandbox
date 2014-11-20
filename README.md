@@ -1,4 +1,4 @@
 jsf-sandbox
 ===========
 
-jsf sandbox project
+jsf sandbox project - primefaces branch
