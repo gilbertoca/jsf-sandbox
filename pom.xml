@@ -15,15 +15,14 @@
         <javaee.web.api>7.0</javaee.web.api>
         <maven.compiler.plugin>2.3.2</maven.compiler.plugin>
         <maven.war.plugin>2.1.1</maven.war.plugin>
-    </properties>
-    
-    
+    </properties>   
     <dependencies>
-        <dependency>
+      <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
             <version>4.0</version>
         </dependency>
+
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -31,7 +30,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -49,6 +47,14 @@
                 <version>${maven.war.plugin}</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.sf.opk</groupId>
+                <artifactId>embedded-glassfish-web-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <!-- Here you can (for example) define JNDI resources for your application. -->
                 </configuration>
             </plugin>
         </plugins>
