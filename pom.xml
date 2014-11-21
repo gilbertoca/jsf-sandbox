@@ -57,6 +57,20 @@
                     <!-- Here you can (for example) define JNDI resources for your application. -->
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.openejb.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>2.0.0-SNAPSHOT</version>
+                <configuration>
+                    <tomeeVersion>2.0.0-SNAPSHOT</tomeeVersion>
+                    <tomeeClassifier>webprofile</tomeeClassifier>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.0.2.Final</version>
+            </plugin>
         </plugins>
     </build>
 </project>
