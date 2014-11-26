@@ -3,9 +3,9 @@ package sandbox.primefaces.datatable;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.SelectEvent;
@@ -20,12 +20,13 @@ public class LazyView implements Serializable {
     private Car selectedCar;
     private List<Car> selectedCars;
 
-    @ManagedProperty("#{carService}")
+    @EJB
     private CarService service;
 
     @PostConstruct
     public void init() {
-        lazyModel = new LazyCarDataModel(service.createCars(200));
+        service.createCars(200);
+        lazyModel = new LazyCarDataModel(service);
     }
 
     public LazyDataModel<Car> getLazyModel() {

@@ -1,15 +1,20 @@
 package sandbox.primefaces.datatable;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Car implements Serializable {
-
-    public String id;
-    public String brand;
-    public int year;
-    public String color;
-    public int price;
-    public boolean sold;
+    @Id
+    private String id;
+    private String brand;
+    @Column(name="\"year\"")
+    private int year;
+    private String color;
+    private int price;
+    private boolean sold;
 
     public Car() {}
 

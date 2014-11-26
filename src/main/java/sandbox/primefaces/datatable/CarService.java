@@ -1,18 +1,28 @@
 package sandbox.primefaces.datatable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-@ManagedBean(name = "carService")
-@ApplicationScoped
+
+//@DataSourceDefinition(name = "java:app/jdbc/myDatasource", 
+// className = "org.h2.jdbcx.JdbcDataSource", 
+// url = "jdbc:h2:file:data/demoData;create=true;DB_CLOSE_DELAY=-1", 
+// user = "sa",
+// password=""
+//)
+@Stateless
 public class CarService {
 
+    @PersistenceContext(unitName = "demoData")
+    private EntityManager em;
+    
     private final static String[] colors;
-
     private final static String[] brands;
 
     static {
@@ -41,15 +51,20 @@ public class CarService {
         brands[9] = "Ford";
     }
 
-    public List<Car> createCars(int size) {
-        List<Car> list = new ArrayList<Car>();
+    public void createCars(int size) {
         for (int i = 0; i < size; i++) {
-            list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
+            em.persist(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
         }
-
-        return list;
     }
 
+//    public List<Car> createCars(int size) {
+//        List<Car> list = new ArrayList<Car>();
+//        for (int i = 0; i < size; i++) {
+//            list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
+//        }
+//
+//        return list;
+//    }
     private String getRandomId() {
         return UUID.randomUUID().toString().substring(0, 8);
     }
@@ -80,5 +95,34 @@ public class CarService {
 
     public List<String> getBrands() {
         return Arrays.asList(brands);
+    }
+
+    public Car findById(String id) {
+        return em.find(Car.class, id);
+    }
+
+    public List<Car> load(int first, int pageSize, String sortField, String sortOrder, Map<String, String> filters) {
+
+        String where = "";
+        for (Map.Entry<String, String> e : filters.entrySet()) {
+            where += (where.length() > 0 ? " AND " : "") + "c."+e.getKey() + " like '" + e.getValue() + "%'";
+        }
+
+        Query lazy = em.createQuery("SELECT c FROM Car c" + (where.length() > 0 ? " where " + where : "") + (sortField != null && sortOrder != null ? " order by " + "c."+sortField + " " + sortOrder : ""));
+        lazy.setFirstResult(first);
+        lazy.setMaxResults(pageSize);
+
+        return lazy.getResultList();
+    }
+
+    public Long count(Map<String, String> filters) {
+        String where = "";
+        if (filters != null) {
+            for (Map.Entry<String, String> e : filters.entrySet()) {
+                where += (where.length() > 0 ? " AND " : "") + "c."+e.getKey() + " like '" + e.getValue() + "%'";
+            }
+        }
+
+        return (Long) em.createQuery("SELECT COUNT(c) FROM Car c" + (where.length() > 0 ? " where " + where : "")).getSingleResult();
     }
 }
