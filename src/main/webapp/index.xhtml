@@ -6,9 +6,13 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcome[ComponentLibrary]" value="[ComponentLibrary] welcome page" />
+        <h:form>
+            <h:dataTable value="#{bean.items}" var="item">
+                <h:column><h:inputText value="#{item.value}" /></h:column>
+            </h:dataTable>
+            <h:commandButton value="add" action="#{bean.add}" />
+            <h:commandButton value="submit" action="#{bean.submit}" />
+        </h:form>
     </h:body>
 </html>
 
