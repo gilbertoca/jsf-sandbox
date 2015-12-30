@@ -11,25 +11,54 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
-        <javaee.web.api>7.0</javaee.web.api>
-        <maven.compiler.plugin>2.3.2</maven.compiler.plugin>
-        <maven.war.plugin>2.1.1</maven.war.plugin>
+        <java.version>1.8</java.version>
+        <javaee.web.api.version>7.0</javaee.web.api.version>
+        <jsf-project-stage>Development</jsf-project-stage>
+        <jsf-facelets-refresh-period>1</jsf-facelets-refresh-period>
+        <jsf-state-saving-method>server</jsf-state-saving-method>
+        <maven.compiler.plugin.version>3.3</maven.compiler.plugin.version>
+        <maven.war.plugin.version>2.6</maven.war.plugin.version>
+        <embedded-glassfish-web-plugin.version>2.1</embedded-glassfish-web-plugin.version>
+        <maven-embedded-glassfish-plugin.version>4.1.1</maven-embedded-glassfish-plugin.version>
+        <wildfly-maven-plugin.version>1.1.0.Alpha5</wildfly-maven-plugin.version>
+        <tomee-embedded-maven-plugin.version>7.0.0-M1</tomee-embedded-maven-plugin.version>
     </properties>   
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>${javaee.web.api}</version>
+            <version>${javaee.web.api.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/webapp/WEB-INF</directory>
+                <includes>
+                    <include>web.xml</include>
+                </includes>
+                <targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF/</targetPath>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin}</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -38,32 +67,49 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${maven.war.plugin}</version>
+                <version>${maven.war.plugin.version}</version>
                 <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
+                    <webXml>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</webXml>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>net.sf.opk</groupId>
                 <artifactId>embedded-glassfish-web-plugin</artifactId>
-                <version>2.1</version>
+                <version>${embedded-glassfish-web-plugin.version}</version>
                 <configuration>
-                    <!-- Here you can (for example) define JNDI resources for your application. -->
+                    <contextRoot>${project.build.finalName}</contextRoot>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.openejb.maven</groupId>
-                <artifactId>tomee-maven-plugin</artifactId>
-                <version>2.0.0-SNAPSHOT</version>
+                <groupId>org.glassfish.embedded</groupId>
+                <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                <version>${maven-embedded-glassfish-plugin.version}</version>
                 <configuration>
-                    <tomeeVersion>2.0.0-SNAPSHOT</tomeeVersion>
-                    <tomeeClassifier>webprofile</tomeeClassifier>
+                    <port>8080</port>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <phase>none</phase>
+                        <configuration>
+                            <app>target/${project.build.finalName}.${project.packaging}</app>
+                            <contextRoot>${project.build.finalName}</contextRoot>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
-                <version>1.0.2.Final</version>
+                <version>${wildfly-maven-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-embedded-maven-plugin</artifactId>
+                <version>${tomee-embedded-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>
