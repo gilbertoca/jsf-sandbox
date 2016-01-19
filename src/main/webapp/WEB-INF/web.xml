@@ -15,7 +15,11 @@
         <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
         <param-value>${jsf-state-saving-method}</param-value>
     </context-param>
-
+    <context-param>
+        <!-- Veja http://javaevangelist.blogspot.com.br/2014/04/jsf-22-tip-of-day-naughty-expression.html-->
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
