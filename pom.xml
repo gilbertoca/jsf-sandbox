@@ -131,6 +131,19 @@
                 <artifactId>tomee-embedded-maven-plugin</artifactId>
                 <version>${tomee-embedded-maven-plugin.version}</version>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomee.maven</groupId>
+                <artifactId>tomee-maven-plugin</artifactId>
+                <version>${tomee-embedded-maven-plugin.version}</version>
+                <configuration>
+                    <synchronization>
+                        <extensions>
+                            <extension>.class</extension> <!-- if you want to update each time you build with mvn compile -->
+                        </extensions>
+                    </synchronization>
+                    <reloadOnUpdate>true</reloadOnUpdate>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

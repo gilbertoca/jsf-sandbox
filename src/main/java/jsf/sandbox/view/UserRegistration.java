@@ -30,7 +30,7 @@ public class UserRegistration {
 
     this.identityManager.updateCredential(newUser, psword);
 
-    return "/signin.xhtml";
+    return "login.xhtml?faces-redirect=true";
   }
 
     public IdentityManager getIdentityManager() {
