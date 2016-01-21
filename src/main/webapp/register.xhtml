@@ -8,13 +8,13 @@
     <body>
         <ui:composition template="/template/layout.xhtml">
             <ui:define name="content">
-                <h2>Please, enter your information:</h2>
+                <h3>Please, enter your information:</h3>
                 <br/><br/>
                 <h:form>
                     First Name: <h:inputText value="#{userRegistration.firstName}" required="true"/><br/>
                     Last Name: <h:inputText value="#{userRegistration.lastName}" required="true"/><br/>
-                    Username: <h:inputText value="#{userRegistration.loginName}" required="true"/><br/>
-                    Password: <h:inputSecret value="#{userRegistration.password}" required="true"/><br/>
+                    Username  : <h:inputText value="#{userRegistration.loginName}" required="true"/><br/>
+                    Password  : <h:inputSecret value="#{userRegistration.password}" required="true"/><br/>
                     <h:commandButton value="Finish" action="#{userRegistration.register}"/>
                 </h:form>
             </ui:define>
