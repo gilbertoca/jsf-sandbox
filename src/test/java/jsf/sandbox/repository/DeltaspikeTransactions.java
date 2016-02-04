@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 @SupportDeltaspikeJpa
 @SupportDeltaspikeData
 @RunWith(CdiRunner.class)
-public class TestDeltaspikeTransactions {
+public class DeltaspikeTransactions {
  
   @Inject
   PersonRepository er;
