@@ -35,22 +35,15 @@
         <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
                 <filtering>true</filtering>
                 <directory>${basedir}/src/main/webapp/WEB-INF</directory>
                 <includes>
                     <include>web.xml</include>
                 </includes>
                 <targetPath>${project.build.directory}/${project.build.finalName}/WEB-INF/</targetPath>
-            </resource>
-            <resource>
-                <filtering>false</filtering>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
             </resource>
         </resources>
 
