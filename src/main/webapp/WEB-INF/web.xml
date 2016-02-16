@@ -43,4 +43,12 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+
+    <data-source>
+        <name>java:app/H2/test</name>
+        <class-name>org.h2.jdbcx.JdbcDataSource</class-name>
+        <url>jdbc:h2:file:./target/dbshiro</url>
+        <user>sa</user>
+        <password>sa</password>
+    </data-source>        
 </web-app>

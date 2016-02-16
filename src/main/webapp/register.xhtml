@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Register Page</title>
+    </h:head>
+    <h:body>
+        <o:importConstants type="jsf.sandbox.model.Role" />
+
+        <h2>Register</h2>
+        <h:form id="register">
+            <h:panelGrid columns="3">
+                <h:outputLabel for="username" value="Username:" />
+                <h:inputText id="username" value="#{register.user.username}" required="true">
+                    <f:ajax event="blur" render="m_username" />
+                </h:inputText>
+                <h:message id="m_username" for="username" />
+
+                <h:outputLabel for="password" value="Password:" />
+                <h:inputSecret id="password" value="#{register.user.password}" required="true">
+                    <f:ajax event="blur" render="m_password" />
+                </h:inputSecret>
+                <h:message id="m_password" for="password" />
+
+                <h:outputLabel for="roles" value="Roles:" />
+                <h:selectManyCheckbox id="roles" value="#{register.user.roles}" required="true"
+                                      layout="pageDirection" converter="omnifaces.GenericEnumConverter">
+                    <f:selectItems value="#{Role}" />
+                </h:selectManyCheckbox>
+                <h:message id="m_roles" for="roles" />
+
+                <h:panelGroup />
+                <h:commandButton value="Register" action="#{register.submit}" >
+                    <f:ajax execute="@form" render="@form" />
+                </h:commandButton>
+                <h:messages globalOnly="true" layout="table" />
+            </h:panelGrid>
+        </h:form>        
+    </h:body>
+</html>
+
