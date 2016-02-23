@@ -15,8 +15,8 @@ jsf sandbox project using [Java EE Web Profile](https://jcp.org/en/jsr/detail?id
    - [TomEE Embedded Maven Plugin](http://tomee.apache.org/tomee-embedded-maven-plugin.html)
    - mvn clean package tomee-embedded:run
 - [Payara Micro Server – Derived from GlassFish](http://www.payara.fish/all_downloads)
-    -mvn clean package
-    -java -jar ~/bin/payara-micro-4.1.1.161.jar --deploy target/jsf-sandbox.war
+   - mvn clean package
+   - java -jar ~/bin/payara-micro-4.1.1.161.jar --deploy target/jsf-sandbox.war
 
 Hoping that some guys come and get into the game as well
 - [Jetty](http://www.eclipse.org/jetty/documentation/9.2.0.v20140526/jetty-javaee.html)
