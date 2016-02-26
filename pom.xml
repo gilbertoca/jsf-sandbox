@@ -24,6 +24,7 @@
         <tomee-embedded-maven-plugin.version>7.0.0-M1</tomee-embedded-maven-plugin.version>
     </properties>   
     <dependencies>
+        <!-- Java EE Web Profile 7  -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
