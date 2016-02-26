@@ -6,7 +6,7 @@
 
         <!-- 
             This data source is defined from within the application via the @DataSourceDefinition annotation on 
-            class org.javaee7.jpa.datasourcedefinition_annotation_pu.config.DataSourceDefinitionConfig
+            class jsf.sandbox.config.DataSourceConfiguration.java
         -->
         <jta-data-source>java:app/MyApp/MyDS</jta-data-source>
 

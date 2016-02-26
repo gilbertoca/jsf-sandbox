@@ -1,32 +1,32 @@
-package jsf.sandbox.repository;
+package jsf.sandbox.deltaspike.repository;
 
 import java.util.List;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import jsf.sandbox.model.Gender;
-import jsf.sandbox.model.Person;
+import jsf.sandbox.deltaspike.model.Gender;
+import jsf.sandbox.deltaspike.model.Person;
 import org.jglue.cdiunit.AdditionalPackages;
 import org.jglue.cdiunit.CdiRunner;
 import org.jglue.cdiunit.deltaspike.SupportDeltaspikeData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ *
+ * @author gilbertoca
+ */
 @RunWith(CdiRunner.class)
 @SupportDeltaspikeData
 @AdditionalPackages(jsf.sandbox.config.EntityManagerProducer.class)
-public class TestPersonRepository {
-
+public class PersonRepositoryTest {
     @Inject
     private PersonRepository repo;
-//    @Inject
-//    private EntityManager em;
 
     @Test
     public void notNull(){
         //org.junit.Assert.assertNotNull(em);
         org.junit.Assert.assertNotNull(repo);
     }
-    
+
     @Test
     public void saveEntity() {
         Person p = new Person();
