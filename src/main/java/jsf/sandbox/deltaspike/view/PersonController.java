@@ -23,7 +23,7 @@ public class PersonController implements Serializable{
     @PostConstruct
     private void init(){
         Person p = new Person();
-        p.setName("name");
+        p.setName("DeltaSpike Guy!");
         p.setAge(15);
         p.setGender(Gender.FEMALE);
         repo.save(p);        

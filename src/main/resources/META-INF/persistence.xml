@@ -17,6 +17,8 @@
             -->
             <property name="wildfly.jpa.twophasebootstrap" value="false" />
             <property name="javax.persistence.schema-generation.database.action" value="drop-and-create" />
+            <!-- for OpenJPA -->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema"/>                        
         </properties>
     </persistence-unit>
     
