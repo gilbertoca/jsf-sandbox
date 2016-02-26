@@ -1,4 +1,4 @@
-package jsf.sandbox;
+package jsf.sandbox.deltaspike.view;
 
 import java.io.Serializable;
 import java.util.List;
@@ -6,9 +6,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import jsf.sandbox.model.Gender;
-import jsf.sandbox.model.Person;
-import jsf.sandbox.repository.PersonRepository;
+import jsf.sandbox.deltaspike.model.Gender;
+import jsf.sandbox.deltaspike.model.Person;
+import jsf.sandbox.deltaspike.repository.PersonRepository;
 
 /**
  *

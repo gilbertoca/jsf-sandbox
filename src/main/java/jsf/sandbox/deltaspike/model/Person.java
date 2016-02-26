@@ -1,4 +1,4 @@
-package jsf.sandbox.model;
+package jsf.sandbox.deltaspike.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

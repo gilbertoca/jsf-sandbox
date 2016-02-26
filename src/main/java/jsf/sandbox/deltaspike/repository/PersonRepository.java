@@ -1,6 +1,6 @@
-package jsf.sandbox.repository;
+package jsf.sandbox.deltaspike.repository;
 
-import jsf.sandbox.model.Person;
+import jsf.sandbox.deltaspike.model.Person;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Query;
 import org.apache.deltaspike.data.api.Repository;
