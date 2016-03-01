@@ -8,17 +8,13 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import jsf.sandbox.deltaspike.model.Gender;
 import jsf.sandbox.deltaspike.model.Person;
-import jsf.sandbox.deltaspike.repository.PersonRepository;
+import jsf.sandbox.deltaspike.service.PersonService;
 
-/**
- *
- * @author gilberto.andrade
- */
 @ViewScoped
 @Named
 public class PersonController implements Serializable{
     @Inject
-    private PersonRepository repo;
+    private PersonService service;
     
     @PostConstruct
     private void init(){
@@ -26,10 +22,10 @@ public class PersonController implements Serializable{
         p.setName("DeltaSpike Guy!");
         p.setAge(15);
         p.setGender(Gender.FEMALE);
-        repo.save(p);        
+        service.save(p);        
     }
     public List<Person> getPeople(){
-        List<Person> result = repo.findAll();
+        List<Person> result = service.findAll();
         return result;
     }
 }
