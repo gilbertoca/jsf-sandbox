@@ -5,9 +5,16 @@
          version="3.1">
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
-        <param-value>Development</param-value>
+        <param-value>${jsf-project-stage}</param-value>
     </context-param>
-
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>${jsf-facelets-refresh-period}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>${jsf-state-saving-method}</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -19,4 +26,17 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <data-source>
+        <name>java:app/MyApp/MyDS</name>
+        <class-name>${data-source.class-name}</class-name>
+        <url>${data-source.url}</url>
+        <user>${data-source.user}</user>
+        <password>${data-source.password}</password>
+        <transactional>${data-source.transactional}</transactional>
+        <isolation-level>${data-source.isolation-level}</isolation-level>
+        <initial-pool-size>${data-source.initial-pool-size}</initial-pool-size>
+        <max-pool-size>${data-source.max-pool-size}</max-pool-size>
+        <min-pool-size>${data-source.min-pool-size}</min-pool-size>
+        <max-statements>${data-source.max-statements}</max-statements>
+    </data-source>        
 </web-app>

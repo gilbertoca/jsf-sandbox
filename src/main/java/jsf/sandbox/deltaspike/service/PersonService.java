@@ -11,10 +11,8 @@ public class PersonService {
 
     @Inject
     PersonRepository personRepository;
-//    @Inject
-//    <Entity>Repository <entity>Repository;
 
-    public void save( Person value) {
+    public void save(Person value) {
         personRepository.save(value);
     }
 

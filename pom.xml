@@ -27,14 +27,90 @@
         <wildfly-maven-plugin.version>1.1.0.Alpha5</wildfly-maven-plugin.version>
         <tomee-embedded-maven-plugin.version>7.0.0-M2</tomee-embedded-maven-plugin.version>
     </properties>   
+    <profiles>
+        <profile>
+            <id>dev-h2</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Default(DEV) DataSource Connection-->
+                <data-source.class-name>org.h2.jdbcx.JdbcDataSource</data-source.class-name>
+                <data-source.url>jdbc:h2:file:./data/deltaDB;create=true;INIT=CREATE SCHEMA IF NOT EXISTS DELTA;MODE=PostgreSQL;DB_CLOSE_DELAY=-1</data-source.url>
+                <data-source.user>delta_user</data-source.user>
+                <data-source.password>delta_user</data-source.password>
+                <data-source.transactional>true</data-source.transactional>
+                <data-source.isolation-level>TRANSACTION_READ_COMMITTED</data-source.isolation-level>
+                <data-source.initial-pool-size>2</data-source.initial-pool-size>
+                <data-source.max-pool-size>10</data-source.max-pool-size>
+                <data-source.min-pool-size>5</data-source.min-pool-size>
+                <data-source.max-statements>0</data-source.max-statements>
+                <!-- (DEV-H2) DataBase Connection for local access-->
+                <jdbc.url>jdbc:h2:file:data/deltaDB;create=true;INIT=CREATE SCHEMA IF NOT EXISTS DELTA;MODE=PostgreSQL;DB_CLOSE_DELAY=-1</jdbc.url>
+                <jdbc.driverClassName>org.h2.Driver</jdbc.driverClassName>
+                <jdbc.username>delta_user</jdbc.username>
+                <jdbc.password>delta_user</jdbc.password>                
+                <jpa.ddl.action>drop-and-create</jpa.ddl.action>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.191</version>
+                </dependency>
+            </dependencies>            
+        </profile>
+        <profile>
+            <id>dev-postgresql</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Default(DEV) DataSource Connection-->
+                <data-source.class-name>org.postgresql.xa.PGXADataSource</data-source.class-name>
+                <data-source.url>jdbc:postgresql://localhost:5433/delta</data-source.url>
+                <data-source.user>postgres</data-source.user>
+                <data-source.password>postgres</data-source.password>
+                <data-source.transactional>true</data-source.transactional>
+                <data-source.isolation-level>TRANSACTION_READ_COMMITTED</data-source.isolation-level>
+                <data-source.initial-pool-size>2</data-source.initial-pool-size>
+                <data-source.max-pool-size>10</data-source.max-pool-size>
+                <data-source.min-pool-size>5</data-source.min-pool-size>
+                <data-source.max-statements>0</data-source.max-statements>
+                <!-- (DEV-POSTGRESQL) DataBase Connection for local access, see the h2 profile-->
+                <jdbc.url>jdbc:postgresql://localhost:5433/empreendedor</jdbc.url>
+                <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
+                <jdbc.username>delta_user</jdbc.username>
+                <jdbc.password>delta_user</jdbc.password>                
+                <jpa.ddl.action>drop-and-create</jpa.ddl.action>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.191</version>
+                </dependency>
+            </dependencies>            
+        </profile>
+        <profile>
+            <id>h2</id>
+            <!-- Needed when running H2 TCP server in another terminal
+            mvn -P h2 exec:java -Dexec.mainClass="org.h2.tools.Server" -Dexec.args="-properties data -baseDir data"
+            -->
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.h2database</groupId>
+                    <artifactId>h2</artifactId>
+                    <version>1.4.191</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>    
     <dependencies>
         <!-- Java EE Web Profile 7  -->
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.6.2</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
@@ -105,7 +181,12 @@
             <version>1.6.3</version>
             <scope>test</scope>
         </dependency>
-        
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.6.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -123,13 +204,6 @@
             </resource>
         </resources>
         <plugins>
-            <!--plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
-                <configuration>
-                </configuration>
-            </plugin-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -143,6 +217,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>${maven.war.plugin.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>true</failOnMissingWebXml>
+                    <webXml>${project.build.directory}/${project.build.finalName}/WEB-INF/web.xml</webXml>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>net.sf.opk</groupId>
