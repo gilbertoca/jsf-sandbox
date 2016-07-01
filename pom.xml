@@ -102,18 +102,17 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>${wildfly-maven-plugin.version}</version>
             </plugin>
-            <!--plugin>
+            <plugin>
                 <groupId>org.wildfly.swarm</groupId>
                 <artifactId>wildfly-swarm-plugin</artifactId>
                 <version>${wildfly-swarm-plugin.version}</version>
                 <executions>
                     <execution>
-                        <goals>
-                            <goal>package</goal>
-                        </goals>
+                        <id>package</id>
+                        <phase>none</phase>
                     </execution>
-                </executions>                
-            </plugin-->                        
+                </executions>
+            </plugin>                        
             <plugin>
                 <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-embedded-maven-plugin</artifactId>
