@@ -25,8 +25,8 @@ jsf sandbox project using [Java EE Web Profile](https://jcp.org/en/jsr/detail?id
 - [Payara Micro Server – Derived from GlassFish](http://www.payara.fish/all_downloads)
     - mvn clean package
     - java -jar ~/bin/payara-micro-4.1.1.162.jar --deploy target/jsf-sandbox.war --noCluster true
-    - ou
-    - gerar um jar da aplicação
+    - or
+    - Creates an executable jar of the application:
     - java -jar ~/bin/payara-micro-4.1.1.162.jar --deploy target/jsf-sandbox.war --outputUberJar target/jsf-sandbox-exec.jar --noCluster true
     - java -jar target/jsf-sandbox-exec.jar
 
