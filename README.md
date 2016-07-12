@@ -22,6 +22,13 @@ jsf sandbox project using [Java EE Web Profile](https://jcp.org/en/jsr/detail?id
     - Creates an executable jar of the application:
     - mvn clean package tomee:exec
     - java -jar target/jsf-sandbox-exec.jar
+- [Payara Micro Server – Derived from GlassFish](http://www.payara.fish/all_downloads)
+    - mvn clean package
+    - java -jar ~/bin/payara-micro-4.1.1.162.jar --deploy target/jsf-sandbox.war --noCluster true
+    - ou
+    - gerar um jar da aplicação
+    - java -jar ~/bin/payara-micro-4.1.1.162.jar --deploy target/jsf-sandbox.war --outputUberJar target/jsf-sandbox-exec.jar --noCluster true
+    - java -jar target/jsf-sandbox-exec.jar
 
 Hoping that some guys come and get into the game as well
 - [Jetty](http://www.eclipse.org/jetty/documentation/9.2.0.v20140526/jetty-javaee.html)
