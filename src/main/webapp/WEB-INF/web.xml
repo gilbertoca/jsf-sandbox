@@ -27,4 +27,22 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <data-source>
+        <name>${data-source.name}</name>
+        <class-name>${data-source.class-name}</class-name>
+        <url>${data-source.url}</url>
+        <user>${data-source.user}</user>
+        <password>${data-source.password}</password>
+        <property>
+            <name>${data-source.property-name}</name>
+            <value>${data-source.property-valor}</value>
+        </property>        
+        <transactional>${data-source.transactional}</transactional>
+        <isolation-level>${data-source.isolation-level}</isolation-level>
+        <initial-pool-size>${data-source.initial-pool-size}</initial-pool-size>
+        <max-pool-size>${data-source.max-pool-size}</max-pool-size>
+        <min-pool-size>${data-source.min-pool-size}</min-pool-size>
+        <max-idle-time>${data-source.max-idle-time}</max-idle-time>
+        <max-statements>${data-source.max-statements}</max-statements>
+    </data-source>    
 </web-app>

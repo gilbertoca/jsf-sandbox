@@ -25,8 +25,65 @@
         <tomee-embedded-maven-plugin.version>7.0.1</tomee-embedded-maven-plugin.version>
         <tomee-maven-plugin.version>7.0.1</tomee-maven-plugin.version>
     </properties>   
+    <profiles>
+        <profile>
+            <id>postgresql</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- Default(DEV) DataSource Connection-->
+                <db.group.id>org.postgresql</db.group.id>
+                <db.artifact>postgresql</db.artifact>
+                <db.version>42.1.4</db.version>                
+                <data-source.name>java:app/sandboxDS</data-source.name>
+                <!--  
+                    Java EE Pool: org.postgresql.ds.PGSimpleDataSource
+                    Driver Pool: org.postgresql.ds.PGConnectionPoolDataSource
+                    XA implementação: org.postgresql.xa.PGXADataSource
+                    TomEE não aceita DataSouce use org.postgresql.Driver
+                -->
+                <data-source.class-name>org.postgresql.ds.PGConnectionPoolDataSource</data-source.class-name>
+                <data-source.url>jdbc:postgresql://localhost/teste</data-source.url>
+                <data-source.user>jsf_user</data-source.user>
+                <data-source.password>jsf_user</data-source.password>
+                <data-source.transactional>true</data-source.transactional>
+                <data-source.isolation-level>TRANSACTION_READ_COMMITTED</data-source.isolation-level>
+                <data-source.initial-pool-size>2</data-source.initial-pool-size>
+                <data-source.max-idle-time>1800</data-source.max-idle-time>
+                <data-source.max-pool-size>10</data-source.max-pool-size>
+                <data-source.min-pool-size>5</data-source.min-pool-size>
+                <data-source.max-statements>0</data-source.max-statements>
+                <!-- (DEV-POSTGRESQL) DataBase Connection -->
+                <jdbc.url>jdbc:postgresql://srv-banco-dev:5433/teste</jdbc.url>
+                <jdbc.driverClassName>org.postgresql.Driver</jdbc.driverClassName>
+                <jdbc.username>jsf_user</jdbc.username>
+                <jdbc.password>jsf_user</jdbc.password>                
+                <!-- JPA-->
+                <jpa.ddl.action>none</jpa.ddl.action>
+                <jpa.validation.mode>NONE</jpa.validation.mode>
+                <jpa.shared-cache-mode>NONE</jpa.shared-cache-mode>
+                <jpa.bytecode_enhancement>eclipselink.weaving</jpa.bytecode_enhancement>
+                <jpa.bytecode_enhancement_value>static</jpa.bytecode_enhancement_value>
+                <jpa.dialect>eclipselink.target-database</jpa.dialect>
+                <jpa.dialect_value>org.eclipse.persistence.platform.database.PostgreSQLPlatform</jpa.dialect_value>                
+                <jpa.cache.second_level>eclipselink.cache.shared.default</jpa.cache.second_level>
+                <jpa.cache.second_level_value>false</jpa.cache.second_level_value>
+                <jpa.cache.second_level_provider>eclipselink.cache.shared.default</jpa.cache.second_level_provider>
+                <jpa.cache.second_level_provider_value>false</jpa.cache.second_level_provider_value>
+                <jpa.logging>eclipselink.logging.level</jpa.logging>
+                <!--OFF,SEVERE,WARNING,INFO,CONFIG,FINE,FINER,FINEST -->
+                <jpa.logging_value>FINE</jpa.logging_value>
+            </properties>
+        </profile>        
+    </profiles>
     <dependencies>
         <!-- Java EE Web Profile 7  -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.2</version>
+        </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
